@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
 public class Main {
-
+    private FPCameraController fp = new FPCameraController(0f, 0f, 0f);
     public static final int DISPLAY_HEIGHT = 480;
     public static final int DISPLAY_WIDTH = 640;
     private DisplayMode displayMode;
@@ -36,6 +36,7 @@ public class Main {
             createWindow();
             Keyboard.create();
             initGL();
+            fp.gameLoop();
             render();
         } catch (Exception e) {
             e.printStackTrace();

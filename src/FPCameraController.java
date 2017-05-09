@@ -1,10 +1,8 @@
 
 import org.lwjgl.Sys;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.input.*;
 import org.lwjgl.opengl.Display;
-import static org.lwjgl.opengl.GL11.glRotatef;
-import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.*;
 import org.lwjgl.util.vector.Vector3f;
 
 /*
@@ -109,9 +107,33 @@ public class FPCameraController {
             camera.yaw(dx * mouseSensitivity);
             camera.pitch(dy * mouseSensitivity);
             
-            if (keyboard) {
-                
-            }
-        } 
+            if (Keyboard.isKeyDown(Keyboard.KEY_W)) 
+                camera.walkForward(movementSpeed);
+            
+            if (Keyboard.isKeyDown(Keyboard.KEY_S)) 
+                camera.walkBackwards(movementSpeed);
+            
+            if (Keyboard.isKeyDown(Keyboard.KEY_A))
+                camera.strafeLeft(movementSpeed);
+            
+            if (Keyboard.isKeyDown(Keyboard.KEY_D))
+                camera.strafeRight(movementSpeed); 
+            
+            if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
+                camera.moveUp(movementSpeed);
+            
+            if (Keyboard.isKeyDown(Keyboard.KEY_E)) 
+                camera.moveDown(movementSpeed); 
+            
+            glLoadIdentity();
+            
+            camera.lookThrough();
+            
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            
+            Display.update();
+            Display.sync(60);
+        }
+        Display.destroy();
     }
 }
